@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Unity.FPS.ObjectPooler;
 
 namespace Unity.FPS.Game
 {
@@ -447,8 +448,8 @@ namespace Unity.FPS.Game
             for (int i = 0; i < bulletsPerShotFinal; i++)
             {
                 Vector3 shotDirection = GetShotDirectionWithinSpread(WeaponMuzzle);
-                ProjectileBase newProjectile = Instantiate(ProjectilePrefab, WeaponMuzzle.position,
-                    Quaternion.LookRotation(shotDirection));
+                ProjectileBase newProjectile = ObjectPoolManager.Instance.GetObject(ProjectilePrefab,
+                    WeaponMuzzle.position, Quaternion.LookRotation(shotDirection));
                 newProjectile.Shoot(this);
             }
 

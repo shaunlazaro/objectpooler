@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Unity.FPS.Game;
 using UnityEngine;
+using Unity.FPS.ObjectPooler;
 
 namespace Unity.FPS.Gameplay
 {
@@ -74,7 +75,7 @@ namespace Unity.FPS.Gameplay
 
             m_ProjectileBase.OnShoot += OnShoot;
 
-            Destroy(gameObject, MaxLifeTime);
+            Return(MaxLifeTime);
         }
 
         new void OnShoot()
@@ -257,7 +258,7 @@ namespace Unity.FPS.Gameplay
             }
 
             // Self Destruct
-            Destroy(this.gameObject);
+            Return();
         }
 
         void OnDrawGizmosSelected()

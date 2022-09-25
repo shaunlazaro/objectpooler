@@ -1,7 +1,8 @@
 {
     "name": "fps.Gameplay",
     "references": [
-        "GUID:9c5543eabb73a6249ac07b2c065ee8b4"
+        "GUID:9c5543eabb73a6249ac07b2c065ee8b4",
+        "GUID:eb50c3d7d1c0bac46abc31ce16f7f87d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

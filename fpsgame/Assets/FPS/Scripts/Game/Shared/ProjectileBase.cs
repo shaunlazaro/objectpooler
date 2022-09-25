@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using Unity.FPS.ObjectPooler;
 
 namespace Unity.FPS.Game
 {
-    public abstract class ProjectileBase : MonoBehaviour
+    public abstract class ProjectileBase : PoolableObject
     {
         public GameObject Owner { get; private set; }
         public Vector3 InitialPosition { get; private set; }
