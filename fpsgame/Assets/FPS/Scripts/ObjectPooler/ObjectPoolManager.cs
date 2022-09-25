@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Unity.FPS.ObjectPoolManager
+namespace Unity.FPS.ObjectPooler
 {
     public class ObjectPoolManager : MonoBehaviour
     {
         public static ObjectPoolManager Instance { get => _instance; }
         static ObjectPoolManager _instance;
+
+        // Implement this as one pool per prefab.
+        Dictionary<PoolableObject, ObjectPool> pools;
 
         private void Awake()
         {
@@ -19,6 +22,36 @@ namespace Unity.FPS.ObjectPoolManager
             {
                 _instance = this;
             }
+        }
+
+        private void Start()
+        {
+            pools = new Dictionary<PoolableObject, ObjectPool>();
+
+            // Register every pool (that is a child of this):
+            ObjectPool[] childPools = GetComponentsInChildren<ObjectPool>();
+            foreach(ObjectPool childPool in childPools)
+            {
+                Debug.Log($"Registering Prefab: {childPool.prefab.name}, HASH = {childPool.prefab.GetHashCode()}");
+                pools.Add(childPool.prefab, childPool);
+            }
+        }
+
+        public T GetObject<T>(T prefab)
+        {
+            Debug.Log($"Retrieving Prefab: {(prefab as PoolableObject).name}, HASH = {(prefab as PoolableObject).GetHashCode()}");
+            ObjectPool pool = pools[prefab as PoolableObject];
+            GameObject returnObj = pool.Get().gameObject;
+            return returnObj.GetComponent<T>();
+        }
+
+        // For now, we only implement only this overload (to match GameObject.Instantiate).
+        public T GetObject<T>(T prefab, Vector3 position, Quaternion rotation)
+        {
+            T obj = GetObject<T>(prefab);
+            (obj as Component).gameObject.transform.position = position;
+            (obj as Component).gameObject.transform.rotation = rotation;
+            return obj;
         }
     }
 }
