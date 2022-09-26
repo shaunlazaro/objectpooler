@@ -6,7 +6,11 @@ namespace Unity.FPS.ObjectPooler
 {
     public class PoolableObject : MonoBehaviour
     {
-        public ObjectPool parentPool;
+        ObjectPool parentPool;
+        public void SetObjectPool(ObjectPool parentPool)
+        {
+            this.parentPool = parentPool;
+        }
 
         public virtual void Return()
         {

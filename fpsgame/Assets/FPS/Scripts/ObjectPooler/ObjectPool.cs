@@ -35,7 +35,7 @@ namespace Unity.FPS.ObjectPooler
 
             // We set the pool object as the parent to keep things neat.  Can be changed if this causes problems in the future.
             PoolableObject newObj = Instantiate(prefab, gameObject.transform); 
-            newObj.parentPool = this;
+            newObj.SetObjectPool(this);
             newObj.gameObject.SetActive(false);
             poolObjects.Add(newObj);
             inactiveObjects.Enqueue(newObj);

@@ -32,14 +32,12 @@ namespace Unity.FPS.ObjectPooler
             ObjectPool[] childPools = GetComponentsInChildren<ObjectPool>();
             foreach(ObjectPool childPool in childPools)
             {
-                Debug.Log($"Registering Prefab: {childPool.prefab.name}, HASH = {childPool.prefab.GetHashCode()}");
                 pools.Add(childPool.prefab, childPool);
             }
         }
 
         public T GetObject<T>(T prefab)
         {
-            Debug.Log($"Retrieving Prefab: {(prefab as PoolableObject).name}, HASH = {(prefab as PoolableObject).GetHashCode()}");
             ObjectPool pool = pools[prefab as PoolableObject];
             GameObject returnObj = pool.Get().gameObject;
             return returnObj.GetComponent<T>();
